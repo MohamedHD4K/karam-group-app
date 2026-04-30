@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { useStore, actions } from "@/lib/store";
+import { useStore, actions } from "../lib/store";
 import { UserPlus, Phone, Award, ShoppingBag, X } from "lucide-react";
 
 export const Route = createFileRoute("/customers")({

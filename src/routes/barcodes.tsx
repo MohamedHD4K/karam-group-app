@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { useStore, type Variant } from "@/lib/store";
-import { Barcode } from "@/components/Barcode";
+import { useStore, type Variant } from "../lib/store";
+import { Barcode } from "../components/Barcode";
 import { Printer, Search, Plus, Minus, Trash2, Tags } from "lucide-react";
 
 export const Route = createFileRoute("/barcodes")({

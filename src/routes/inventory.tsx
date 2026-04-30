@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { useStore } from "@/lib/store";
+import { useStore } from "../lib/store";
 import { Search, Package, AlertTriangle } from "lucide-react";
 
 export const Route = createFileRoute("/inventory")({

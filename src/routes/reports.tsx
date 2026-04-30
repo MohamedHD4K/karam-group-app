@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useStore } from "@/lib/store";
+import { useStore } from "../lib/store";
 import { TrendingUp, Trophy } from "lucide-react";
 
 export const Route = createFileRoute("/reports")({

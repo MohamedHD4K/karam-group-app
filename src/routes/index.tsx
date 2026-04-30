@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useStore } from "@/lib/store";
+import { useStore } from "../lib/store";
 import { TrendingUp, ShoppingBag, Users, Package, ArrowUpRight, AlertTriangle } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -44,7 +44,7 @@ function Dashboard() {
     <div className="p-6 md:p-8 max-w-7xl mx-auto">
       <header className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-foreground">Karam Group</h1>
-        <p className="text-muted-foreground mt-1">إليك ملخص أداء متجرك اليوم</p>
+        <p className="text-muted-foreground mt-1">ملخص أداء متجرك اليوم</p>
       </header>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
