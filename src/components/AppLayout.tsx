@@ -1,81 +1,96 @@
-import { Link, Outlet, useLocation } from "@tanstack/react-router";
-import { LayoutDashboard, ShoppingCart, Package, Users, BarChart3, Settings, Sparkles, Tags } from "lucide-react";
+import { Link, Outlet, useLocation } from '@tanstack/react-router'
+import {
+  LayoutDashboard,
+  ShoppingCart,
+  Package,
+  Users,
+  BarChart3,
+  Settings,
+  Tags,
+} from 'lucide-react'
+import Header from './Header'
 
 const navItems = [
-  { to: "/", label: "لوحة التحكم", icon: LayoutDashboard },
-  { to: "/pos", label: "نقطة البيع", icon: ShoppingCart },
-  { to: "/inventory", label: "المخزون", icon: Package },
-  { to: "/barcodes", label: "الباركود", icon: Tags },
-  { to: "/reports", label: "التقارير", icon: BarChart3 },
-] as const;
+  { to: '/', label: 'لوحة التحكم', icon: LayoutDashboard },
+  { to: '/pos', label: 'نقطة البيع', icon: ShoppingCart },
+  { to: '/inventory', label: 'المخزن', icon: Package },
+  { to: '/barcodes', label: 'الباركود', icon: Tags },
+  { to: '/customers', label: 'العملاء', icon: Users },
+] as const
 
 export function AppLayout() {
-  const location = useLocation();
+  const location = useLocation()
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <aside className="hidden md:flex w-64 flex-col bg-sidebar text-sidebar-foreground">
-        <div className="px-6 py-6 border-b border-sidebar-border">
+    <div className="flex bg-background dark:bg-background transition-colors">
+      {/* Sidebar */}
+      <aside className="hidden md:flex w-64 flex-col h-screen top-0 sticky z-50 bg-white dark:bg-[#212121] border-l border-gray-200 dark:border-[#424242] ">
+        {/* Logo Section */}
+        <div className="px-6 py-8">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
-              <Sparkles className="h-5 w-5 text-white" />
+            <div className="h-10 w-10 rounded-lg bg-slate-900 dark:bg-indigo-600 flex items-center justify-center shadow-sm">
+              <ShoppingCart className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-bold">Karam Group</h1>
-              <p className="text-xs text-sidebar-foreground/60">إدارة المتجر</p>
+              <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                Karam Group
+              </h1>
+              <p className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+                متجر ملابس
+              </p>
             </div>
           </div>
         </div>
-        <nav className="flex-1 px-3 py-4 space-y-1">
+
+        {/* Navigation */}
+        <nav className="flex-1 space-y-1">
           {navItems.map((item) => {
-            const active = location.pathname === item.to;
-            const Icon = item.icon;
+            const active = location.pathname === item.to
+            const Icon = item.icon
             return (
               <Link
                 key={item.to}
                 to={item.to}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                className={`group flex items-center gap-4 px-6 py-4 text-sm font-medium transition-all relative ${
                   active
-                    ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-elegant"
-                    : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                    ? 'bg-slate-100/80 dark:bg-[#303030]/80 text-primary'
+                    : 'text-slate-500 dark:text-[#c4c4c4]/90 hover:bg-slate-50 dark:hover:bg-[#303030]/50 hover:text-slate-700 dark:hover:text-slate-200'
                 }`}
               >
-                <Icon className="h-4 w-4" />
-                <span className="flex-1">{item.label}</span>
-                {item.to === "/pos" && 1 > 0 && (
-                  <span className="bg-accent text-accent-foreground text-xs font-bold px-2 py-0.5 rounded-full">
-                    {1}
-                  </span>
+                {active && (
+                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-primary shadow-[0_0_8px_rgba(79,70,229,0.4)]" />
                 )}
+
+                <span className="flex-1 text-right order-1">{item.label}</span>
+                <Icon
+                  className={`h-6 w-6 order-2 transition-colors ${
+                    active ? 'text-primary' : ''
+                  }`}
+                />
               </Link>
-            );
+            )
           })}
         </nav>
-        <div className="p-4 border-t border-sidebar-border">
-          <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent">
-            <Settings className="h-4 w-4" />
-            الإعدادات
+
+        {/* Bottom Actions */}
+        <div className="p-4 border-t border-gray-50 dark:border-[#424242]">
+          <button
+            className="w-full flex items-center justify-end gap-4 px-6 py-4 text-slate-500 dark:text-[#c4c4c4]/90 hover:bg-slate-50 dark:hover:bg-[#303030]/50
+           hover:text-slate-700 dark:hover:text-slate-200 rounded-md transition-colors"
+          >
+            <span className="text-sm font-medium">الإعدادات</span>
+            <Settings className="h-6 w-6" />
           </button>
         </div>
       </aside>
 
-      {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-sidebar text-sidebar-foreground border-t border-sidebar-border flex justify-around py-2">
-        {navItems.map((item) => {
-          const active = location.pathname === item.to;
-          const Icon = item.icon;
-          return (
-            <Link key={item.to} to={item.to} className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-lg text-[10px] ${active ? "text-accent" : "text-sidebar-foreground/70"}`}>
-              <Icon className="h-5 w-5" />
-              {item.label}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <main className="flex-1 overflow-auto pb-20 md:pb-0">
-        <Outlet />
+      {/* Main Content Area */}
+      <main className="flex-1">
+        <Header />
+        <div>
+          <Outlet />
+        </div>
       </main>
     </div>
-  );
+  )
 }

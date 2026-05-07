@@ -27,7 +27,7 @@ function Barcodes() {
   const products = useStore((s) => s.products);
   const [query, setQuery] = useState("");
   const [queue, setQueue] = useState<Record<string, Row>>({});
-  const [labelSize, setLabelSize] = useState<"sm" | "md" | "lg">("md");
+  const [labelSize, setlabelSize] = useState<"sm" | "md" | "lg">("md");
 
   const allRows = useMemo<Row[]>(
     () =>
@@ -110,8 +110,8 @@ function Barcodes() {
         <div className="flex items-center gap-2">
           <select
             value={labelSize}
-            onChange={(e) => setLabelSize(e.target.value as "sm" | "md" | "lg")}
-            className="bg-card border border-border rounded-xl px-3 py-2 text-sm"
+            onChange={(e) => setlabelSize(e.target.value as "sm" | "md" | "lg")}
+            className="bg-card border border-border outline-none rounded-lg px-3 py-2 cursor-pointer text-sm"
           >
             <option value="sm">لاصقة صغيرة</option>
             <option value="md">لاصقة متوسطة</option>
@@ -120,7 +120,7 @@ function Barcodes() {
           <button
             onClick={handlePrint}
             disabled={totalLabels === 0}
-            className="gradient-primary text-primary-foreground rounded-xl px-4 py-2 text-sm font-semibold flex items-center gap-2 shadow-elegant disabled:opacity-50"
+            className="gradient-primary hover:bg-black/50 cursor-pointer text-white rounded-lg px-4 py-2 text-sm font-semibold flex items-center gap-2 shadow-elegant disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"
           >
             <Printer className="h-4 w-4" /> طباعة ({totalLabels})
           </button>
@@ -129,26 +129,26 @@ function Barcodes() {
 
       <div className="no-print grid lg:grid-cols-5 gap-6 mb-8">
         {/* SKU picker */}
-        <section className="lg:col-span-3 bg-card border border-border rounded-2xl shadow-soft p-4">
-          <div className="flex items-center justify-between gap-3 mb-3">
+        <section className="lg:col-span-3 bg-card border border-border rounded-md shadow-soft">
+          <div className="flex items-center justify-between gap-3 mb-3 p-4 pb-2">
             <div className="relative flex-1">
               <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="ابحث بالاسم أو SKU أو اللون..."
-                className="w-full bg-background border border-border rounded-xl py-2.5 pr-10 pl-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full bg-background border border-border rounded-md outline-none py-2 pr-10 pl-4 text-sm text-gray-700 dark:text-white/90"
               />
             </div>
             <button
               onClick={fillFromStock}
-              className="text-xs px-3 py-2 rounded-lg bg-secondary text-secondary-foreground hover:opacity-90"
+            className="text-xs px-3 py-2 rounded-lg bg-primary font-medium text-primary-foreground hover:opacity-90"
             >
               تعبئة من المخزون
             </button>
           </div>
 
-          <div className="max-h-[480px] overflow-auto divide-y divide-border overflow-hidden">
+          <div className="max-h-[480px] overflow-auto divide-y divide-border p-4 pt-2">
             {filtered.map((r) => {
               const inQ = queue[r.variantId]?.qty ?? 0;
               return (
@@ -190,8 +190,8 @@ function Barcodes() {
         </section>
 
         {/* Queue summary */}
-        <aside className="lg:col-span-2 bg-card border border-border rounded-2xl shadow-soft p-4">
-          <div className="flex items-center justify-between mb-3">
+        <aside className="lg:col-span-2 bg-card border border-border rounded-md shadow-soft">
+          <div className="flex items-center justify-between mb-3 text-lg text-primary pb-2 p-4">
             <h2 className="font-semibold">قائمة الطباعة</h2>
             <button
               onClick={() => setQueue({})}
@@ -205,7 +205,7 @@ function Barcodes() {
               لم تُضِف أي SKU بعد. اختر من القائمة لتظهر هنا.
             </p>
           ) : (
-            <ul className="space-y-2 max-h-[440px] overflow-auto">
+            <ul className="space-y-2 max-h-[440px] overflow-auto pt-2 p-4">
               {queueList.map((r) => (
                 <li
                   key={r.variantId}
@@ -222,7 +222,7 @@ function Barcodes() {
               ))}
             </ul>
           )}
-          <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-sm">
+          <div className="mt-4 border-t border-border flex items-center justify-between text-sm  py-2 p-4">
             <span className="text-muted-foreground">إجمالي اللواصق</span>
             <span className="font-bold text-lg">{totalLabels}</span>
           </div>
@@ -234,7 +234,7 @@ function Barcodes() {
         <h2 className="no-print text-lg font-semibold mb-3">معاينة اللواصق</h2>
         <div
           id="print-area"
-          className="bg-white text-black rounded-2xl border border-border p-4 flex flex-wrap gap-2"
+          className="bg-card text-black rounded-md border border-border p-4 flex flex-wrap gap-2"
         >
           {queueList.length === 0 ? (
             <p className="no-print w-full text-center text-sm text-muted-foreground py-12">
@@ -255,7 +255,7 @@ function Barcodes() {
                     {r.variant.size} • {r.variant.color}
                   </div>
                   <Barcode value={r.variant.sku} width={cfg.w} height={cfg.h} fontSize={cfg.font} />
-                  <div className="font-bold">{r.price} TL</div>
+                  <div className="font-bold">{r.price} tl</div>
                 </div>
               )),
             )

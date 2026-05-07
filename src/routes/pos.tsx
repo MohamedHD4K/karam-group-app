@@ -37,7 +37,7 @@ function POS() {
   return (
     <div className="grid lg:grid-cols-[1fr_400px] h-screen">
       {/* Products */}
-      <div className="p-6 overflow-auto">
+      <div className="p-12 px-28 overflow-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-bold mb-4">نقطة البيع</h1>
           <div className="relative">
@@ -46,7 +46,7 @@ function POS() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="ابحث عن منتج أو SKU..."
-              className="w-full bg-card border border-border rounded-xl py-3 pr-10 pl-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full bg-card border border-border rounded-md outline-none py-3 pr-10 pl-4 text-sm text-gray-700 dark:text-white/90"
             />
           </div>
         </div>
@@ -56,12 +56,12 @@ function POS() {
             <button
               key={p.id}
               onClick={() => setSelected(p)}
-              className="bg-card border border-border rounded-2xl p-4 text-right hover:border-primary hover:shadow-elegant transition-all group"
+              className="bg-card border border-border rounded-md  hover:rotate-z-1  p-4 text-right hover:bg-card/90 cursor-pointer hover:shadow transition-all group"
             >
-              <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">{p.image}</div>
+              <div className="text-5xl mb-3 group-hover:scale-110 inline-block transition-transform">{p.image}</div>
               <div className="text-xs text-muted-foreground mb-1">{p.category}</div>
               <div className="font-semibold text-sm mb-2 line-clamp-1">{p.name}</div>
-              <div className="text-primary font-bold">{p.price} TL</div>
+              <div className="text-primary font-bold">{p.price}₺</div>
             </button>
           ))}
         </div>
@@ -95,7 +95,7 @@ function POS() {
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium truncate">{item.name}</div>
                   <div className="text-xs text-muted-foreground">{item.size} • {item.color}</div>
-                  <div className="text-sm font-bold text-primary mt-0.5">{item.price * item.qty} TL</div>
+                  <div className="text-sm font-bold text-primary mt-0.5">{item.price * item.qty}₺</div>
                 </div>
                 <div className="flex items-center gap-1">
                   <button onClick={() => actions.updateQty(item.variantId, item.qty - 1)} className="h-7 w-7 rounded-lg bg-background border border-border hover:bg-muted flex items-center justify-center">
@@ -127,13 +127,13 @@ function POS() {
 
             <div className="space-y-1.5 text-sm">
               <div className="flex justify-between text-muted-foreground">
-                <span>المجموع الفرعي</span><span>{subtotal.toFixed(2)} TL</span>
+                <span>المجموع الفرعي</span><span>{subtotal.toFixed(2)}₺</span>
               </div>
               <div className="flex justify-between text-muted-foreground">
-                <span>ضريبة (15%)</span><span>{tax.toFixed(2)} TL</span>
+                <span>ضريبة (15%)</span><span>{tax.toFixed(2)}₺</span>
               </div>
               <div className="flex justify-between text-lg font-bold pt-2 border-t border-border">
-                <span>الإجمالي</span><span className="text-primary">{total.toFixed(2)} TL</span>
+                <span>الإجمالي</span><span className="text-primary">{total.toFixed(2)}₺</span>
               </div>
             </div>
 
@@ -141,7 +141,7 @@ function POS() {
               <button onClick={() => checkout("cash")} className="flex flex-col items-center gap-1 py-3 rounded-xl bg-success text-success-foreground font-medium hover:opacity-90 transition">
                 <Banknote className="h-4 w-4" /> <span className="text-xs">نقدي</span>
               </button>
-              <button onClick={() => checkout("card")} className="flex flex-col items-center gap-1 py-3 rounded-xl gradient-primary text-primary-foreground font-medium hover:opacity-90 transition">
+              <button onClick={() => checkout("card")} className="flex flex-col items-center gap-1 py-3 rounded-xl gradient-primary text-white font-medium hover:opacity-90 transition">
                 <CreditCard className="h-4 w-4" /> <span className="text-xs">بطاقة</span>
               </button>
               <button onClick={() => checkout("wallet")} className="flex flex-col items-center gap-1 py-3 rounded-xl bg-accent text-accent-foreground font-medium hover:opacity-90 transition">
@@ -159,7 +159,7 @@ function POS() {
 
       {/* Success toast */}
       {done && (
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-success text-success-foreground px-6 py-3 rounded-2xl shadow-elegant flex items-center gap-2 animate-in fade-in slide-in-from-bottom z-50">
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-success text-success-foreground px-6 py-3 rounded-md shadow-elegant flex items-center gap-2 animate-in fade-in slide-in-from-bottom z-50">
           <Check className="h-5 w-5" /> تمت العملية بنجاح
         </div>
       )}
@@ -180,7 +180,7 @@ function VariantPicker({ product, onClose }: { product: Product; onClose: () => 
           <span className="text-5xl">{product.image}</span>
           <div>
             <h3 className="font-bold text-lg">{product.name}</h3>
-            <p className="text-primary font-bold">{product.price} TL</p>
+            <p className="text-primary font-bold">{product.price}₺</p>
           </div>
         </div>
         <p className="text-sm text-muted-foreground mb-3">اختر المقاس واللون:</p>

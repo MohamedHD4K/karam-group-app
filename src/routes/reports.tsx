@@ -19,7 +19,7 @@ function Reports() {
     return acc;
   }, {} as Record<string, number>);
 
-  const paymentLabels: Record<string, string> = { cash: "نقدي", card: "بطاقة", wallet: "محفظة" };
+  const paymentlabels: Record<string, string> = { cash: "نقدي", card: "بطاقة", wallet: "محفظة" };
 
   // Top categories by stock value
   const topProducts = [...products]
@@ -34,17 +34,17 @@ function Reports() {
       </header>
 
       <div className="grid md:grid-cols-3 gap-4 mb-6">
-        <div className="gradient-primary text-primary-foreground rounded-2xl p-5 shadow-elegant">
+        <div className="gradient-primary text-primary-foreground rounded-md p-5 shadow-elegant">
           <div className="text-sm opacity-90">إجمالي المبيعات</div>
-          <div className="text-3xl font-bold mt-2">{totalRevenue.toLocaleString("ar-EG")} TL</div>
+          <div className="text-3xl font-bold mt-2">{totalRevenue.toLocaleString("ar-EG")} tl</div>
           <div className="text-xs opacity-80 mt-1">{sales.length} عملية بيع</div>
         </div>
-        <div className="bg-card border border-border rounded-2xl p-5 shadow-soft">
+        <div className="bg-card border border-border rounded-md p-5 shadow-soft">
           <div className="text-sm text-muted-foreground">متوسط الفاتورة</div>
-          <div className="text-3xl font-bold mt-2 text-foreground">{avgSale.toFixed(0)} TL</div>
+          <div className="text-3xl font-bold mt-2 text-foreground">{avgSale.toFixed(0)} tl</div>
           <div className="text-xs text-success mt-1 flex items-center gap-1"><TrendingUp className="h-3 w-3" /> متوسط جيد</div>
         </div>
-        <div className="bg-card border border-border rounded-2xl p-5 shadow-soft">
+        <div className="bg-card border border-border rounded-md p-5 shadow-soft">
           <div className="text-sm text-muted-foreground">عدد المنتجات النشطة</div>
           <div className="text-3xl font-bold mt-2 text-foreground">{products.length}</div>
           <div className="text-xs text-muted-foreground mt-1">{products.reduce((a, p) => a + p.variants.length, 0)} متغير</div>
@@ -52,7 +52,7 @@ function Reports() {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-soft">
+        <div className="bg-card border border-border rounded-md p-6 shadow-soft">
           <h2 className="font-bold text-lg mb-4">طرق الدفع</h2>
           <div className="space-y-3">
             {Object.entries(byPayment).map(([k, v]) => {
@@ -60,8 +60,8 @@ function Reports() {
               return (
                 <div key={k}>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="font-medium">{paymentLabels[k]}</span>
-                    <span className="text-muted-foreground">{v.toLocaleString("ar-EG")} TL ({pct.toFixed(0)}%)</span>
+                    <span className="font-medium">{paymentlabels[k]}</span>
+                    <span className="text-muted-foreground">{v.toLocaleString("ar-EG")} tl ({pct.toFixed(0)}%)</span>
                   </div>
                   <div className="h-2 rounded-full bg-muted overflow-hidden">
                     <div className="h-full gradient-primary rounded-full transition-all" style={{ width: `${pct}%` }} />
@@ -72,7 +72,7 @@ function Reports() {
           </div>
         </div>
 
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-soft">
+        <div className="bg-card border border-border rounded-md p-6 shadow-soft">
           <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
             <Trophy className="h-5 w-5 text-accent" /> أعلى المنتجات (بالمخزون)
           </h2>

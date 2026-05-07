@@ -28,7 +28,7 @@ function Inventory() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ابحث عن منتج..."
-            className="w-full bg-card border border-border rounded-xl py-2.5 pr-10 pl-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full bg-card border border-border rounded-md outline-none py-2.5 pr-10 pl-4 text-sm text-gray-700 dark:text-white/90"
           />
         </div>
       </header>
@@ -39,7 +39,7 @@ function Inventory() {
           const lowCount = p.variants.filter((v) => v.stock <= 3).length;
           const isOpen = open === p.id;
           return (
-            <div key={p.id} className="bg-card border border-border rounded-2xl shadow-soft overflow-hidden">
+            <div key={p.id} className="bg-card border border-border rounded-md shadow-soft overflow-hidden">
               <button onClick={() => setOpen(isOpen ? null : p.id)} className="w-full p-4 flex items-center gap-4 hover:bg-muted/30 transition">
                 <span className="text-4xl">{p.image}</span>
                 <div className="flex-1 text-right">
@@ -47,7 +47,7 @@ function Inventory() {
                   <div className="text-xs text-muted-foreground mt-0.5">{p.category} • {p.variants.length} مقاسات/ألوان</div>
                 </div>
                 <div className="text-left">
-                  <div className="font-bold text-primary">{p.price} TL</div>
+                  <div className="font-bold text-primary">{p.price} ₺</div>
                   <div className={`text-xs mt-0.5 ${totalStock <= 5 ? "text-destructive" : "text-muted-foreground"}`}>
                     {totalStock} قطعة
                   </div>
@@ -59,7 +59,7 @@ function Inventory() {
                 )}
               </button>
               {isOpen && (
-                <div className="border-t border-border bg-muted/20 p-4">
+                <div className="border-t border-border bg-muted/10 p-4">
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
@@ -80,7 +80,7 @@ function Inventory() {
                             <td className="py-2.5 px-3 font-bold">{v.stock}</td>
                             <td className="py-2.5 px-3">
                               <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                                v.stock === 0 ? "bg-destructive/10 text-destructive"
+                                v.stock === 0 ? "bg-destructive/20 text-destructive"
                                 : v.stock <= 3 ? "bg-warning/15 text-warning-foreground"
                                 : "bg-success/15 text-success"
                               }`}>

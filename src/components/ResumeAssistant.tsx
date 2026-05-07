@@ -109,7 +109,7 @@ export default function ResumeAssistant() {
       {/* Header */}
       <div className="relative flex items-center justify-between p-4 border-b border-blue-500/10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-linear-to-br from-blue-500 via-purple-500 to-slate-600 flex items-center justify-center shadow-lg shadow-blue-500/30 rotate-3 hover:rotate-0 transition-transform">
+          <div className="w-10 h-10 rounded-md bg-linear-to-br from-blue-500 via-purple-500 to-slate-600 flex items-center justify-center shadow-lg shadow-blue-500/30 rotate-3 hover:rotate-0 transition-transform">
             <Briefcase className="w-5 h-5 text-white" />
           </div>
           <div>
@@ -158,7 +158,7 @@ export default function ResumeAssistant() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about skills, experience, or qualifications..."
               disabled={isLoading}
-              className="w-full rounded-2xl border border-blue-500/20 bg-slate-800/50 pl-4 pr-12 py-3 text-sm text-slate-100 placeholder-slate-300/30 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent resize-none overflow-hidden disabled:opacity-50 transition-all"
+              className="w-full rounded-md border border-blue-500/20 bg-slate-800/50 pl-4 pr-12 py-3 text-sm text-slate-100 placeholder-slate-300/30 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent resize-none overflow-hidden disabled:opacity-50 transition-all"
               rows={1}
               style={{ minHeight: '48px', maxHeight: '100px' }}
               onInput={(e) => {

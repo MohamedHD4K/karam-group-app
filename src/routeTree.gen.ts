@@ -14,9 +14,7 @@ import { Route as PosRouteImport } from './routes/pos'
 import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as CustomersRouteImport } from './routes/customers'
 import { Route as BarcodesRouteImport } from './routes/barcodes'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiResumeChatRouteImport } from './routes/api.resume-chat'
 
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
@@ -43,95 +41,65 @@ const BarcodesRoute = BarcodesRouteImport.update({
   path: '/barcodes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiResumeChatRoute = ApiResumeChatRouteImport.update({
-  id: '/api/resume-chat',
-  path: '/api/resume-chat',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/barcodes': typeof BarcodesRoute
   '/customers': typeof CustomersRoute
   '/inventory': typeof InventoryRoute
   '/pos': typeof PosRoute
   '/reports': typeof ReportsRoute
-  '/api/resume-chat': typeof ApiResumeChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/barcodes': typeof BarcodesRoute
   '/customers': typeof CustomersRoute
   '/inventory': typeof InventoryRoute
   '/pos': typeof PosRoute
   '/reports': typeof ReportsRoute
-  '/api/resume-chat': typeof ApiResumeChatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/barcodes': typeof BarcodesRoute
   '/customers': typeof CustomersRoute
   '/inventory': typeof InventoryRoute
   '/pos': typeof PosRoute
   '/reports': typeof ReportsRoute
-  '/api/resume-chat': typeof ApiResumeChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
     | '/barcodes'
     | '/customers'
     | '/inventory'
     | '/pos'
     | '/reports'
-    | '/api/resume-chat'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/barcodes'
-    | '/customers'
-    | '/inventory'
-    | '/pos'
-    | '/reports'
-    | '/api/resume-chat'
+  to: '/' | '/barcodes' | '/customers' | '/inventory' | '/pos' | '/reports'
   id:
     | '__root__'
     | '/'
-    | '/about'
     | '/barcodes'
     | '/customers'
     | '/inventory'
     | '/pos'
     | '/reports'
-    | '/api/resume-chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
   BarcodesRoute: typeof BarcodesRoute
   CustomersRoute: typeof CustomersRoute
   InventoryRoute: typeof InventoryRoute
   PosRoute: typeof PosRoute
   ReportsRoute: typeof ReportsRoute
-  ApiResumeChatRoute: typeof ApiResumeChatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -171,13 +139,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BarcodesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -185,25 +146,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/resume-chat': {
-      id: '/api/resume-chat'
-      path: '/api/resume-chat'
-      fullPath: '/api/resume-chat'
-      preLoaderRoute: typeof ApiResumeChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
   BarcodesRoute: BarcodesRoute,
   CustomersRoute: CustomersRoute,
   InventoryRoute: InventoryRoute,
   PosRoute: PosRoute,
   ReportsRoute: ReportsRoute,
-  ApiResumeChatRoute: ApiResumeChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
