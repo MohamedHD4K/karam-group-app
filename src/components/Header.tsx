@@ -1,31 +1,10 @@
 import { Bell, CircleQuestionMark, Moon, Search, Sun } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
+import { ThemeContext } from '#/context/ThemeContext'
 
 export default function Header() {
-  const [dark, setDark] = useState(false)
-
-  useEffect(() => {
-    const saved = localStorage.getItem('theme')
-
-    if (saved === 'dark') {
-      document.documentElement.classList.add('dark')
-      setDark(true)
-    }
-  }, [])
-  
-  const toggleTheme = () => {
-    const newDark = !dark
-
-    setDark(newDark)
-
-    if (newDark) {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
-  }
+  const { theme, toggleTheme } = useContext(ThemeContext)
+  const isDark = theme === 'dark'
 
   return (
     <header className="hidden border-b border-gray-200 dark:bg-[#212121] dark:border-[#424242] bg-white px-4 sm:block">
@@ -47,7 +26,7 @@ export default function Header() {
             className="cursor-pointer"
             color="gray"
           />
-          {dark ? (
+          {isDark ? (
             <Moon
               size={22}
               className="cursor-pointer"

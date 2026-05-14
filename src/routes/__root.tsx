@@ -1,11 +1,12 @@
 import {
   Link,
-  createRootRoute,
   HeadContent,
+  createRootRoute,
   Scripts,
 } from '@tanstack/react-router'
 import { AppLayout } from '../components/AppLayout'
 import appCss from '../styles.css?url'
+import { ThemeProvider } from '#/context/ThemeContext'
 
 function NotFoundComponent() {
   return (
@@ -44,6 +45,7 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      { rel: 'icon', type: 'image/png', href: '/image/icon.png' },
       { rel: 'stylesheet', href: appCss },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       {
@@ -64,6 +66,7 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
+    <ThemeProvider>
     <html lang="ar" dir="rtl">
       <head>
         <HeadContent />
@@ -73,6 +76,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
+    </ThemeProvider>
   )
 }
 

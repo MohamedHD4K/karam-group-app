@@ -4,11 +4,12 @@ import {
   ShoppingCart,
   Package,
   Users,
-  BarChart3,
   Settings,
   Tags,
 } from 'lucide-react'
 import Header from './Header'
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 const navItems = [
   { to: '/', label: 'لوحة التحكم', icon: LayoutDashboard },
@@ -20,20 +21,27 @@ const navItems = [
 
 export function AppLayout() {
   const location = useLocation()
+  const { theme } = useContext(ThemeContext)
 
   return (
-    <div className="flex bg-background dark:bg-background transition-colors">
+    <div
+      className={`flex bg-background dark:bg-background transition-colors ${theme === "dark" ? "dark" : ""}`}
+    >
       {/* Sidebar */}
       <aside className="hidden md:flex w-64 flex-col h-screen top-0 sticky z-50 bg-white dark:bg-[#212121] border-l border-gray-200 dark:border-[#424242] ">
         {/* Logo Section */}
         <div className="px-6 py-8">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-slate-900 dark:bg-indigo-600 flex items-center justify-center shadow-sm">
-              <ShoppingCart className="h-5 w-5 text-white" />
+            <div className="h-10 w-10 rounded-lg bg-slate-900 p-2 dark:bg-white flex items-center justify-center shadow-sm">
+              <img
+                src="/image/icon.svg"
+                className={theme === "light" ? "invert" : ""}
+                alt="Karam Fashion Logo"
+              />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
-                Karam Group
+              <h1 className="text-lg font-serif font-bold text-slate-900 dark:text-white tracking-tight">
+                KARAM FASHION
               </h1>
               <p className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
                 متجر ملابس

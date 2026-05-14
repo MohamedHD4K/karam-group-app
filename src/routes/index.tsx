@@ -1,3 +1,4 @@
+'use client'
 import { createFileRoute } from '@tanstack/react-router'
 import { useStore } from '../lib/store'
 import {
@@ -18,6 +19,8 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts'
+import { ThemeContext } from '../context/ThemeContext'
+import { useContext } from 'react'
 
 export const Route = createFileRoute('/')({
   head: () => ({
@@ -33,6 +36,7 @@ export const Route = createFileRoute('/')({
 })
 
 function Dashboard() {
+  const { theme } = useContext(ThemeContext)
   const products = useStore((s) => s.products)
   const sales = useStore((s) => s.sales)
   const customers = useStore((s) => s.customers)
@@ -136,7 +140,7 @@ function Dashboard() {
         {/* Stats */}
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s, i) => {
-          const Icon = s.icon
+            const Icon = s.icon
 
             return (
               <div
@@ -180,9 +184,7 @@ function Dashboard() {
 
                 <div
                   className={`relative mt-1 text-sm ${
-                    s.featured
-                      ? 'text-white/80'
-                      : 'text-muted-foreground'
+                    s.featured ? 'text-white/80' : 'text-muted-foreground'
                   }`}
                 >
                   {s.label}
@@ -198,9 +200,7 @@ function Dashboard() {
           <div className="rounded-md border border-border/60 bg-white dark:bg-[#212121] p-6 dar shadow-sm lg:col-span-2">
             <div className="mb-6 flex items-end justify-between">
               <div>
-                <h2 className="text-lg font-bold">
-                  نظرة على آخر 7 أيام
-                </h2>
+                <h2 className="text-lg font-bold">نظرة على آخر 7 أيام</h2>
 
                 <p className="text-sm text-muted-foreground">
                   إيرادات يومية بالليرة
@@ -227,13 +227,19 @@ function Dashboard() {
                     <linearGradient id="rev" x1="0" y1="0" x2="0" y2="1">
                       <stop
                         offset="0%"
-                        stopColor={localStorage.getItem('theme') === 'dark' ? `#fff` : `hsl(var(--primary))`}
+                        stopColor={
+                          theme === 'dark' ? `#fff` : `hsl(var(--primary))`
+                        }
                         stopOpacity={0.35}
                       />
 
                       <stop
                         offset="100%"
-                        stopColor={localStorage.getItem('theme') === 'dark' ? `hsl(var(--primary))` : `hsl(var(--primary))`}
+                        stopColor={
+                          theme === 'dark'
+                            ? `hsl(var(--primary))`
+                            : `hsl(var(--primary))`
+                        }
                         stopOpacity={0}
                       />
                     </linearGradient>
@@ -251,7 +257,10 @@ function Dashboard() {
                     axisLine={false}
                     tick={{
                       fontSize: 12,
-                      fill: localStorage.getItem('theme') === 'dark' ? `#fff` : `hsl(var(--muted-foreground))`,
+                      fill:
+                        theme === 'dark'
+                          ? `#fff`
+                          : `hsl(var(--muted-foreground))`,
                     }}
                   />
 
@@ -261,7 +270,10 @@ function Dashboard() {
                     width={40}
                     tick={{
                       fontSize: 12,
-                      fill: localStorage.getItem('theme') === 'dark' ? `#fff` : `hsl(var(--muted-foreground))`,
+                      fill:
+                        theme === 'dark'
+                          ? `#fff`
+                          : `hsl(var(--muted-foreground))`,
                     }}
                   />
 
@@ -292,15 +304,10 @@ function Dashboard() {
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="rounded-lg bg-yellow-500/10 p-2">
-                  <AlertTriangle
-                    size={18}
-                    className="text-warning "
-                  />
+                  <AlertTriangle size={18} className="text-warning " />
                 </div>
 
-                <h2 className="text-lg font-bold">
-                  تنبيهات المخزون
-                </h2>
+                <h2 className="text-lg font-bold">تنبيهات المخزون</h2>
               </div>
 
               <span className="rounded-full bg-yellow-500/10 px-2 py-0.5 text-xs font-semibold text-yellow-600 dark:text-yellow-400">
@@ -331,9 +338,7 @@ function Dashboard() {
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-semibold">
-                        {p.name}
-                      </p>
+                      <p className="truncate text-sm font-semibold">{p.name}</p>
 
                       <p className="text-xs text-muted-foreground">
                         {v.size} • {v.color}
@@ -360,9 +365,7 @@ function Dashboard() {
         <section className="rounded-md border border-border/60 bg-white dark:bg-[#212121] p-6  shadow-sm">
           <div className="mb-6 flex items-end justify-between">
             <div>
-              <h2 className="text-lg font-bold">
-                آخر المعاملات
-              </h2>
+              <h2 className="text-lg font-bold">آخر المعاملات</h2>
 
               <p className="text-sm text-muted-foreground">
                 ملخص أداء المتجر لآخر أسبوع
@@ -397,16 +400,13 @@ function Dashboard() {
                     </td>
 
                     <td className="py-4 font-medium">
-                      {d.customerName || 'عميل مجهول'}
+                      {customers.find((c) => c.id === d.customerId)?.name ||
+                        'عميل مجهول'}
                     </td>
 
-                    <td className="py-4 text-muted-foreground">
-                      {0} قطعة
-                    </td>
+                    <td className="py-4 text-muted-foreground">{0} قطعة</td>
 
-                    <td className="py-4 font-bold">
-                      {d.total} ₺
-                    </td>
+                    <td className="py-4 font-bold">{d.total} ₺</td>
 
                     <td className="py-4">
                       <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">

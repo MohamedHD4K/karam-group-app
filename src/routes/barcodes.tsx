@@ -195,7 +195,7 @@ function Barcodes() {
             <h2 className="font-semibold">قائمة الطباعة</h2>
             <button
               onClick={() => setQueue({})}
-              className="text-xs text-destructive hover:underline flex items-center gap-1"
+              className="text-xs cursor-pointer text-destructive hover:underline flex items-center gap-1"
             >
               <Trash2 className="h-3.5 w-3.5" /> تفريغ
             </button>
